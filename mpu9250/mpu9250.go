@@ -48,14 +48,14 @@ type MPU9250 struct {
 	CAvg                  <-chan *MPUData // Average sensor values (since CAvg last read)
 	CBuf                  <-chan *MPUData // Buffer of instantaneous sensor values
 	cClose                chan bool       // Turn off MPU polling
-	chipVersion           IMUChipType
+	chipVersion           IMUChipVersion
 }
 
 /*
 NewMPU9250 creates a new MPU9250 object according to the supplied parameters.  If there is no MPU9250 available or there
 is an error creating the object, an error is returned.
 */
-func NewMPU9250(i2cbus *embd.I2CBus, sensitivityGyro, sensitivityAccel, sampleRate int, enableMag bool, applyHWOffsets bool) (*MPU9250, error) {
+func NewMPU9250(i2cbus embd.I2CBus, sensitivityGyro, sensitivityAccel, sampleRate int, enableMag bool, applyHWOffsets bool) (*MPU9250, error) {
 	var mpu = new(MPU9250)
 
 	mpu.sampleRate = sampleRate
@@ -69,7 +69,7 @@ func NewMPU9250(i2cbus *embd.I2CBus, sensitivityGyro, sensitivityAccel, sampleRa
 	} else {
 		if v == ICMREG_WHO_AM_I_VAL {
 			log.Println("ICM-20948 detected.") //FIXME.
-			mpu.chipVersion = ICM20948
+			mpu.chipVersion = IMU_VERSION_ICM20948
 		}
 	}
 

@@ -3,10 +3,10 @@ package ahrs
 import (
 	"fmt"
 	"math"
+	"math/rand"
 	"testing"
 
 	"github.com/westphae/quaternion"
-	"math/rand"
 )
 
 var (

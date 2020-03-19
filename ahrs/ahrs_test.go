@@ -1,12 +1,13 @@
 package ahrs
 
 import (
-	"github.com/skelterjohn/go.matrix"
 	"log"
 	"math"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/skelterjohn/go.matrix"
 )
 
 func createRandomState() (s *KalmanState) {

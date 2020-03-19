@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"../../ahrs"
-	"../../mpu9250"
+	"github.com/cyoung/goflying/ahrs"
+	"github.com/cyoung/goflying/mpu9250"
 )
 
 func main() {

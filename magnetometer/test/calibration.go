@@ -6,16 +6,16 @@ import (
 	"net/http"
 	"time"
 
-	"../../mpu9250"
+	"github.com/cyoung/goflying/mpu9250"
 	"github.com/gorilla/websocket"
 )
 
 const numRetries int = 5
 
 var upgrader = websocket.Upgrader{
-	ReadBufferSize: 1024,
+	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool { return true },
+	CheckOrigin:     func(r *http.Request) bool { return true },
 }
 
 func main() {
@@ -48,9 +48,9 @@ func openMPU9250() (mpu *mpu9250.MPU9250, err error) {
 	return mpu, nil
 }
 
-func readData(mpu *mpu9250.MPU9250) (reqData chan chan map[string]interface{}){
+func readData(mpu *mpu9250.MPU9250) (reqData chan chan map[string]interface{}) {
 	var (
-		cur *mpu9250.MPUData
+		cur    *mpu9250.MPUData
 		logMap = make(map[string]interface{})
 	)
 	reqData = make(chan chan map[string]interface{}, 100)
@@ -87,7 +87,7 @@ func sendData(w http.ResponseWriter, r *http.Request, reqData chan chan map[stri
 
 	myData := make(chan map[string]interface{})
 	for {
-		reqData<- myData
+		reqData <- myData
 		err = conn.WriteJSON(<-myData)
 		if err != nil {
 			log.Printf("Error writing to websocket: %s\n", err)
@@ -99,11 +99,15 @@ func sendData(w http.ResponseWriter, r *http.Request, reqData chan chan map[stri
 
 func updateLogMap(t0 time.Time, m *mpu9250.MPUData, p map[string]interface{}) {
 	var sensorLogMap = map[string]func(t0 time.Time, m *mpu9250.MPUData) float64{
-		"T":    func(t0 time.Time, m *mpu9250.MPUData) float64 { return float64(m.T.Sub(t0).Nanoseconds()/1000000) / 1000 },
-		"TM":   func(t0 time.Time, m *mpu9250.MPUData) float64 { return float64(m.TM.Sub(t0).Nanoseconds()/1000000) / 1000 },
-		"M1":   func(t0 time.Time, m *mpu9250.MPUData) float64 { return m.M1 },
-		"M2":   func(t0 time.Time, m *mpu9250.MPUData) float64 { return m.M2 },
-		"M3":   func(t0 time.Time, m *mpu9250.MPUData) float64 { return m.M3 },
+		"T": func(t0 time.Time, m *mpu9250.MPUData) float64 {
+			return float64(m.T.Sub(t0).Nanoseconds()/1000000) / 1000
+		},
+		"TM": func(t0 time.Time, m *mpu9250.MPUData) float64 {
+			return float64(m.TM.Sub(t0).Nanoseconds()/1000000) / 1000
+		},
+		"M1": func(t0 time.Time, m *mpu9250.MPUData) float64 { return m.M1 },
+		"M2": func(t0 time.Time, m *mpu9250.MPUData) float64 { return m.M2 },
+		"M3": func(t0 time.Time, m *mpu9250.MPUData) float64 { return m.M3 },
 	}
 
 	for k := range sensorLogMap {

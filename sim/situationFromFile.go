@@ -9,29 +9,29 @@ import (
 	"os"
 	"strconv"
 
-	"../ahrs"
+	"github.com/cyoung/goflying/ahrs"
 	"github.com/skelterjohn/go.matrix"
 )
 
 type SituationFromFile struct {
-	ix     int
-	t      []float64
-	a1     []float64
-	a2     []float64
-	a3     []float64
-	h1     []float64
-	h2     []float64
-	h3     []float64
-	m1     []float64
-	m2     []float64
-	m3     []float64
-	tw     []float64
-	w1     []float64
-	w2     []float64
-	w3     []float64
-	wvalid []float64
-	alt    []float64
-	logMap map[string][]*float64 // Map only for analysis/debugging
+	ix            int
+	t             []float64
+	a1            []float64
+	a2            []float64
+	a3            []float64
+	h1            []float64
+	h2            []float64
+	h3            []float64
+	m1            []float64
+	m2            []float64
+	m3            []float64
+	tw            []float64
+	w1            []float64
+	w2            []float64
+	w3            []float64
+	wvalid        []float64
+	alt           []float64
+	logMap        map[string][]*float64 // Map only for analysis/debugging
 	logMapCurrent map[string]interface{}
 }
 
@@ -73,8 +73,8 @@ func NewSituationFromFile(fn string) (sit *SituationFromFile, err error) {
 
 	// Read the rest of the data into the situation
 	var (
-		j   int
-		t0  float64
+		j  int
+		t0 float64
 	)
 	for {
 		rec, err = r.Read()
@@ -172,9 +172,9 @@ func (s *SituationFromFile) UpdateState(st *ahrs.State, aBias, bBias, mBias []fl
 }
 
 func (s *SituationFromFile) UpdateMeasurement(m *ahrs.Measurement,
-		uValid, wValid, sValid, mValid bool,
-		uNoise, wNoise, aNoise, bNoise, mNoise float64,
-		uBias, aBias, bBias, mBias []float64) error {
+	uValid, wValid, sValid, mValid bool,
+	uNoise, wNoise, aNoise, bNoise, mNoise float64,
+	uBias, aBias, bBias, mBias []float64) error {
 	m.U1 = 0
 	m.U2 = 0
 	m.U3 = 0

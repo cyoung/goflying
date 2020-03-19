@@ -7,17 +7,17 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"log"
 	"math"
 	"math/rand"
+	"net/url"
 	"os"
+	"os/signal"
 	"time"
 
-	"../../ahrsweb"
-	"fmt"
+	"github.com/cyoung/goflying/ahrsweb"
 	"github.com/gorilla/websocket"
-	"net/url"
-	"os/signal"
 )
 
 func update(data *ahrsweb.AHRSData) {

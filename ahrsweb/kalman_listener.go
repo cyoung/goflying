@@ -5,10 +5,10 @@ import (
 	"log"
 	"time"
 	//"math"
+	"fmt"
 	"net/url"
 
-	"../ahrs"
-	"fmt"
+	"github.com/cyoung/goflying/ahrs"
 	"github.com/gorilla/websocket"
 )
 

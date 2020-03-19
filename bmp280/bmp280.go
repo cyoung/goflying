@@ -6,13 +6,14 @@ Reference 2: https://forums.adafruit.com/viewtopic.php?f=19&t=89049
 package bmp280
 
 import (
-	"../embd"
-	_ "../embd/host/all"
-	_ "../embd/host/rpi"
 	"fmt"
 	"log"
 	"math"
 	"time"
+
+	"github.com/kidoman/embd"
+	_ "github.com/kidoman/embd/host/all"
+	_ "github.com/kidoman/embd/host/rpi"
 )
 
 const (
@@ -30,7 +31,7 @@ const (
 	SoftResetCode = 0xB6
 	// Standby Time Definitions
 	StandbyTime1ms    = 0x00
-	StandbyTime63ms   = 0X01
+	StandbyTime63ms   = 0x01
 	StandbyTime125ms  = 0x02
 	StandbyTime250ms  = 0x03
 	StandbyTime500ms  = 0x04
@@ -51,10 +52,10 @@ const (
 	Oversamp8x      = 0x04
 	Oversamp16x     = 0x05
 	// Working Mode Definitions
-	UltraLowPowerMode       = 0X00
-	LowPowerMode            = 0X01
-	StandardResolutionMode  = 0X02
-	HighResolutionMode      = 0X03
+	UltraLowPowerMode       = 0x00
+	LowPowerMode            = 0x01
+	StandardResolutionMode  = 0x02
+	HighResolutionMode      = 0x03
 	UltraHighResolutionMode = 0x04
 
 	// BMP280 registers

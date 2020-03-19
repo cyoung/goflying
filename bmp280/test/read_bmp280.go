@@ -1,10 +1,11 @@
 package main
 
 import (
-	"../../bmp280"
-	"../../embd"
 	"fmt"
 	"time"
+
+	"github.com/cyoung/goflying/bmp280"
+	"github.com/kidoman/embd"
 )
 
 func main() {
